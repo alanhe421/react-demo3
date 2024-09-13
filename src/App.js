@@ -8,6 +8,8 @@ import createRootReducer from "./reducers";
 
 export const history = createBrowserHistory();
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 const logMiddlewares = process.env.NODE_ENV === 'development' ? [createLogger({collapsed: true})] : [];
 
 const middleWares = [...logMiddlewares];
