@@ -4,6 +4,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { createBrowserHistory } from 'history';
 import AllRouter from "./routes";
 import { Provider } from "react-redux";
+import createRootReducer from "./reducers";
 
 export const history = createBrowserHistory();
 
@@ -11,7 +12,7 @@ const logMiddlewares = process.env.NODE_ENV === 'development' ? [createLogger({c
 
 const middleWares = [...logMiddlewares];
 
-const store = createStore(compose(applyMiddleware(...middleWares)));
+const store = createStore(createRootReducer, compose(applyMiddleware(...middleWares)));
 
 function App() {
   return <Provider store={store}>
