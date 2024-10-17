@@ -8,8 +8,8 @@ import { ClickToComponent } from "click-to-react-component";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ClickToComponent />
-    <App />
+    <ClickToComponent editor={'cursor'}/>
+    <App/>
   </React.StrictMode>
 );
 

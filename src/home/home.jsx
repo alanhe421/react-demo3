@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../actions";
+import NumCounter from "../num-counter/index.";
 
 function Home() {
   const user = useSelector((state) => state.user);
@@ -9,7 +10,7 @@ function Home() {
   const count = user.age;
   console.log(user);
   return <><Link to={'/'}>home</Link>
-
+      <NumCounter/>
     <div>
       <div>
         <button
