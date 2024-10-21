@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../actions";
 import NumCounter from "../num-counter/index.";
+import { ClickToComponent } from "click-to-react-component";
 
 function Home() {
   const user = useSelector((state) => state.user);
@@ -10,7 +11,8 @@ function Home() {
   const count = user.age;
   console.log(user);
   return <><Link to={'/'}>home</Link>
-      <NumCounter/>
+    <ClickToComponent editor={'cursor'}/>
+    <NumCounter/>
     <div>
       <div>
         <button
