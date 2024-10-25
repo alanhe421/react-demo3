@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../actions";
@@ -12,9 +12,18 @@ function Home() {
   const [hasError, setHasError] = useState(false);
   const count = user.age;
   console.log(user);
-  if (hasError) {
-    throw new Error('123');
-  }
+
+  const createError = useCallback(() => {
+      JSON.parse(undefined);
+  }, []);
+
+
+  useEffect(() => {
+    if (hasError) {
+      throw new Error('I crashed!');
+    }
+  }, [hasError]);
+
   return <><Link to={'/'}>home</Link>
     <ClickToComponent editor={'cursor'}/>
     <NumCounter/>
