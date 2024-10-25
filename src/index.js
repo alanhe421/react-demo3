@@ -8,11 +8,10 @@ import { ClickToComponent } from "click-to-react-component";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ClickToComponent editor={'cursor'}/>
-    <App/>
+      <ClickToComponent editor={'cursor'}/>
+      <App/>
   </React.StrictMode>
 );
-
 
 
 // If you want to start measuring performance in your app, pass a function

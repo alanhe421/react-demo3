@@ -18,7 +18,7 @@ const store = createStore(createRootReducer, compose(applyMiddleware(...middleWa
 
 function App() {
   return <Provider store={store}>
-    <AllRouter/>
+      <AllRouter/>
   </Provider>
 }
 
