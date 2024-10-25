@@ -13,7 +13,7 @@ function Home() {
   const count = user.age;
   console.log(user);
   if (hasError) {
-    return hasError.username.aaa;
+    throw new Error('123');
   }
   return <><Link to={'/'}>home</Link>
     <ClickToComponent editor={'cursor'}/>
