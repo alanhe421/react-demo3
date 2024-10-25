@@ -5,7 +5,6 @@ import { setUserInfo } from "../actions";
 import NumCounter from "../num-counter/index.";
 import { ClickToComponent } from "click-to-react-component";
 import { Button, DatePicker } from "antd";
-import ErrorBoundary from "../error/react-err";
 
 function Home() {
   const user = useSelector((state) => state.user);
@@ -16,7 +15,7 @@ function Home() {
   if (hasError) {
     return hasError.username.aaa;
   }
-  return <ErrorBoundary><Link to={'/'}>home</Link>
+  return <><Link to={'/'}>home</Link>
     <ClickToComponent editor={'cursor'}/>
     <NumCounter/>
     <DatePicker/>
@@ -47,7 +46,7 @@ function Home() {
         throw error
       </Button>
     </div>
-  </ErrorBoundary>;
+  </>;
 }
 
 export default Home;
