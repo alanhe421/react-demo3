@@ -18,8 +18,6 @@ class ErrorBoundary extends React.Component {
     //   in div (created by App)
     //   in App
     // logErrorToMyService(error, info.componentStack);
-    debugger;
-    this.setState({hasError: true});
   }
 
   render() {
