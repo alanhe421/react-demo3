@@ -15,7 +15,7 @@ function Home() {
   console.log(user);
 
   const createError = useCallback(() => {
-      JSON.parse(undefined);
+    JSON.parse(undefined);
   }, []);
 
 
@@ -26,6 +26,9 @@ function Home() {
   }, [hasError]);
 
   return <><Link to={'/'}>home</Link>
+    <Link to={'/ant-graph'}>
+      Ant Graph
+    </Link>
     <ClickToComponent editor={'cursor'}/>
     <NumCounter/>
     <DatePicker/>
