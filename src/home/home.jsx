@@ -5,6 +5,7 @@ import { setUserInfo } from "../actions";
 import NumCounter from "../num-counter/index.";
 import { ClickToComponent } from "click-to-react-component";
 import { Button, DatePicker } from "antd";
+import ExampleComponent from "./example";
 
 function Home() {
   const user = useSelector((state) => state.user);
@@ -28,6 +29,7 @@ function Home() {
     <ClickToComponent editor={'cursor'}/>
     <NumCounter/>
     <DatePicker/>
+    <ExampleComponent/>
     <div>
       <div>
         <button
