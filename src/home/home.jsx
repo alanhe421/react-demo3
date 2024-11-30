@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../actions";
@@ -18,12 +18,22 @@ function Home() {
     JSON.parse(undefined);
   }, []);
 
+  const ref = useRef(null);
+  const [tooltipHeight, setTooltipHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const {height} = ref.current.getBoundingClientRect();
+    setTooltipHeight(height);
+  }, []);
 
   useEffect(() => {
     if (hasError) {
       throw new Error('I crashed!');
     }
   }, [hasError]);
+
+
+  console.log('tooltipHeight', tooltipHeight, ref.current?.getBoundingClientRect());
 
   return <><Link to={'/'}>home</Link>
     <Link to={'/ant-graph'}>
@@ -33,7 +43,7 @@ function Home() {
     <NumCounter/>
     <DatePicker/>
     <ExampleComponent/>
-    <div>
+    <div ref={ref}>
       <div>
         <button
           aria-label="Increment value"
