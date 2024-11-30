@@ -38,7 +38,7 @@ function AntGraph() {
     });
 
 
-    graph.addEdge({
+    const edge1 = graph.addEdge({
       source: node1,
       target: node2,
       attrs: {
@@ -52,6 +52,21 @@ function AntGraph() {
         },
       },
     });
+
+    edge1.setLabels([
+      {
+        attrs: {
+          label: {
+            text: `123`,
+            fontSize: 12,
+            background: {
+              color: 'RGBA(0,0,0,0)',
+            },
+          },
+        },
+        position: 0.5,
+      },
+    ])
   }, []);
 
   return <div style={{
