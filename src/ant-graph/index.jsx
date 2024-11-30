@@ -2,13 +2,12 @@ import { useEffect } from "react";
 import { Graph } from "@antv/x6";
 
 function AntGraph() {
-
   useEffect(() => {
     const graph = new Graph({
       container: document.getElementById('container'), autoResize: true,
       background: {
         color: '#F2F7FA',
-      },grid: {
+      }, grid: {
         visible: true,
         type: 'doubleMesh',
         args: [
@@ -23,7 +22,36 @@ function AntGraph() {
           },
         ],
       },
-    })
+    });
+    const node1 = graph.addNode({
+      x: 100,
+      y: 60,
+      shape: 'rect',
+      label: 'Rect1',
+    });
+
+    const node2 = graph.addNode({
+      x: 300,
+      y: 160,
+      shape: 'rect',
+      label: 'Rect2',
+    });
+
+
+    graph.addEdge({
+      source: node1,
+      target: node2,
+      attrs: {
+        line: {
+          stroke: '#333',
+          strokeWidth: 2,
+          targetMarker: {
+            name: 'classic',
+            size: 7,
+          },
+        },
+      },
+    });
   }, []);
 
   return <div style={{
