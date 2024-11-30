@@ -50,6 +50,7 @@ function AntGraph() {
             size: 7,
           },
         },
+
       },
     });
 
@@ -58,10 +59,30 @@ function AntGraph() {
         attrs: {
           label: {
             text: `123`,
-            fontSize: 12,
-            background: {
-              color: 'RGBA(0,0,0,0)',
+            fill: '#000',
+            fontSize: 14,
+            textAnchor: 'middle',
+            textVerticalAnchor: 'middle',
+            pointerEvents: 'none',
+            style: {
+              width: '200px', // 设置宽度
+              overflow: 'hidden',
+              textOverflow: 'ellipsis', // 溢出省略
+              whiteSpace: 'nowrap',
             },
+          },
+          body: {
+            ref: 'label',
+            width: 140,
+            fill: '#ffd591',
+            stroke: '#ffa940',
+            strokeWidth: 2,
+            rx: 4,
+            ry: 4,
+            refWidth: '140%',
+            refHeight: '140%',
+            refX: '-20%',
+            refY: '-20%',
           },
         },
         position: 0.5,
