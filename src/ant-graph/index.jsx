@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { useEffect } from "react";
 import { Graph, Markup } from "@antv/x6";
-import { Button } from "antd";
+import { Button, Popover } from "antd";
 
 const Label = (props) => {
   const onClick = () => {
@@ -24,9 +24,11 @@ const Label = (props) => {
       }}
       onClick={onClick}
     >
-      {
-        props.text || 'React Button'
-      }
+      <Popover content={props.text || 'React Button'} title="Title">
+        {
+          props.text || 'React Button'
+        }
+      </Popover>
     </button>
   );
 }
@@ -79,7 +81,7 @@ function AntGraph() {
         },
       },
       label: {
-        attrs:{
+        attrs: {
           label: {
             text: '2222',
           },
@@ -102,9 +104,7 @@ function AntGraph() {
       width: 1000,
       height: 1000,
     }}></div>
-    <Button onClick={updateLabel} style={{
-
-    }}>Update Label</Button>
+    <Button onClick={updateLabel} style={{}}>Update Label</Button>
   </div>;
 }
 
