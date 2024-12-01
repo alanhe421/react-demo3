@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { Graph, Markup } from "@antv/x6";
 import { Button, Popover } from "antd";
 import { register } from '@antv/x6-react-shape'
-import iconUrl from './../svg/surface-computer-25d.svg';
+import iconUrl from './../svg/television-67.svg';
+import iconUrl2 from './../svg/bag-rice.svg';
 
 class CustomNode extends React.Component {
   shouldComponentUpdate() {
@@ -22,7 +23,7 @@ class CustomNode extends React.Component {
     const data = node?.getData();
     return (
       <div className={`node`}>
-        <img src={iconUrl} alt={''} width={80}/>
+        <img src={data.type === '1' ? iconUrl : iconUrl2} alt={''} width={80}/>
         <div className="label">
           {data.label}
         </div>
@@ -131,7 +132,8 @@ function AntGraph() {
       y: 160,
       shape: 'custom-node',
       data: {
-        label: 'React Node',
+        type: '1',
+        label: 'Television',
       }
     });
 
@@ -140,7 +142,8 @@ function AntGraph() {
       y: 360,
       shape: 'custom-node',
       data: {
-        label: 'React Node2',
+        type: '2',
+        label: 'bag rice',
       }
     });
 
