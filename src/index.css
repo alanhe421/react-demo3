@@ -21,6 +21,13 @@ code {
     color: black;
 }
 
+.node .label {
+    transform: rotate(34deg);
+    position: relative;
+    left: -26px;
+    top: -30px;
+}
+
 .dgraph {
     /*transform: perspective(800px) rotateX(30deg) rotateY(-30deg);*/
 }
