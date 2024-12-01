@@ -69,7 +69,6 @@ register({
 
 const Label = (props) => {
   const onClick = () => {
-    alert('clicked');
   }
   console.log('props', props);
   return (
@@ -152,8 +151,9 @@ function AntGraph() {
       target: node2,
       defaultLabel: {
         markup: Markup.getForeignObjectMarkup(),
-        labelCfg:{
-          autoRotate: true,
+        labelCfg: {
+          autoRotate: true, // 自动旋转标签
+          position: 'middle', // 标签位置，默认在边的中间
         },
         attrs: {
           fo: {
