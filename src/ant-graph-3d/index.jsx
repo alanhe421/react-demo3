@@ -123,11 +123,6 @@ function AntGraph() {
         console.log('args', args, edge);
         const content = selectors.foContent;
         console.log('content', content);
-        const sourceNode = edge.getSourceNode();
-        const targetNode = edge.getTargetNode();
-        const dx = targetNode.position().x - sourceNode.position().x;
-        const dy = targetNode.position().y - sourceNode.position().y;
-        const angle = Math.atan2(dy, dx); // 弧度
         const rotation = (angle * 180) / Math.PI;
         // content.style.transform = `rotate(${rotation}deg)`;
         // content.style.transformOrigin = 'center';
@@ -156,6 +151,12 @@ function AntGraph() {
       }
     });
 
+    const sourceNode = node1;
+    const targetNode = node2;
+    const dx = targetNode.position().x - sourceNode.position().x;
+    const dy = targetNode.position().y - sourceNode.position().y;
+    const angle = Math.atan2(dy, dx) * 100 - 25; // 弧度
+    console.log('angle', angle);
     graph.addEdge({
       source: node1,
       target: node2,
@@ -184,7 +185,14 @@ function AntGraph() {
               }
             },
           },
-          position: 0.5,
+          position: {
+            distance: 0.3,
+            angle: angle,
+            offset: {
+              x: 0,
+              y: 10,
+            }
+          },
         },
         {
           attrs: {
