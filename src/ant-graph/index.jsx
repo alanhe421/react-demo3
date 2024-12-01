@@ -1,99 +1,105 @@
+import React, { useCallback, useRef } from 'react';
+import ReactDOM from 'react-dom/client';
 import { useEffect } from "react";
-import { Graph } from "@antv/x6";
+import { Graph, Markup } from "@antv/x6";
+import { Button } from "antd";
+
+const Label = (props) => {
+  const onClick = () => {
+    alert('clicked');
+  }
+
+
+  console.log('props', props);
+
+  return (
+    <button
+      style={{
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        color: '#000',
+        background: '#ffd591',
+        border: '2px solid #ffa940',
+        borderRadius: 4,
+      }}
+      onClick={onClick}
+    >
+      {
+        props.text || 'React Button'
+      }
+    </button>
+  );
+}
+
 
 function AntGraph() {
+  const edgeRef = useRef(null);
+  const updateLabel = useCallback(() => {
+    edgeRef.current.attr()
+    edgeRef.current.appendLabel({
+      attrs: {
+        text: {
+          text: Math.random().toString(),
+        },
+      },
+    })
+  }, []);
   useEffect(() => {
     const graph = new Graph({
-      container: document.getElementById('container'), autoResize: true,
+      container: document.getElementById('container'),
+      grid: true,
       background: {
-        color: '#F2F7FA',
-      }, grid: {
-        visible: true,
-        type: 'doubleMesh',
-        args: [
-          {
-            color: '#eee', // 主网格线颜色
-            thickness: 1, // 主网格线宽度
-          },
-          {
-            color: '#ddd', // 次网格线颜色
-            thickness: 1, // 次网格线宽度
-            factor: 4, // 主次网格线间隔
-          },
-        ],
+        color: '#eac7b530', // 设置背景色
       },
-    });
-    const node1 = graph.addNode({
-      x: 100,
-      y: 60,
-      shape: 'rect',
-      label: 'Rect1',
-    });
+      onEdgeLabelRendered: (args) => {
+        const {selectors, label,} = args;
+        console.log('args', args);
+        const content = selectors.foContent;
+        console.log('content', content);
+        if (content) {
+          ReactDOM.createRoot(content).render(<Label text={label.text}/>);
+        }
+      },
+    })
 
-    const node2 = graph.addNode({
-      x: 300,
-      y: 160,
-      shape: 'rect',
-      label: 'Rect2',
-    });
-
-
-    const edge1 = graph.addEdge({
-      source: node1,
-      target: node2,
+    const edge = graph.addEdge({
+      source: [170, 160],
+      target: [550, 160],
+      defaultLabel: {
+        markup: Markup.getForeignObjectMarkup(),
+        attrs: {
+          fo: {
+            width: 120,
+            height: 30,
+            x: 60,
+            y: -15,
+          },
+        },
+      },
+      label: {
+        position: 0.25,
+        text: 'Hello, Edge!', // 设置标签文本内容
+      },
       attrs: {
         line: {
-          stroke: '#333',
-          strokeWidth: 2,
-          targetMarker: {
-            name: 'classic',
-            size: 7,
-          },
+          stroke: '#ccc',
         },
-
       },
     });
-
-    edge1.setLabels([
-      {
-        attrs: {
-          label: {
-            text: `123`,
-            fill: '#000',
-            fontSize: 14,
-            textAnchor: 'middle',
-            textVerticalAnchor: 'middle',
-            pointerEvents: 'none',
-            style: {
-              width: '200px', // 设置宽度
-              overflow: 'hidden',
-              textOverflow: 'ellipsis', // 溢出省略
-              whiteSpace: 'nowrap',
-            },
-          },
-          body: {
-            ref: 'label',
-            width: 140,
-            fill: '#ffd591',
-            stroke: '#ffa940',
-            strokeWidth: 2,
-            rx: 4,
-            ry: 4,
-            refWidth: '140%',
-            refHeight: '140%',
-            refX: '-20%',
-            refY: '-20%',
-          },
-        },
-        position: 0.5,
-      },
-    ])
+    edgeRef.current = edge;
+    // edge.appendLabel('123');
   }, []);
 
+
   return <div style={{
-    width: '1000px', height: '1000px'
+    display: "flex"
   }}>
-    <div id="container"></div>
+    <div id="container" style={{
+      width: 1000,
+      height: 1000,
+    }}></div>
+    <Button onClick={updateLabel}>Update Label</Button>
   </div>;
 }
 
