@@ -186,6 +186,17 @@ function AntGraph() {
           },
           position: 0.5,
         },
+        {
+          attrs: {
+            label: {
+              text: 'React Edge22',
+              labelCfg: {
+                autoRotate: true,
+              }
+            },
+          },
+          position: 0.2,
+        }
       ],
     })
     return () => {
