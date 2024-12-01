@@ -83,6 +83,7 @@ const Label = (props) => {
         borderRadius: 4,
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        ...props.style
       }}
       onClick={onClick}
     >
@@ -113,6 +114,7 @@ function AntGraph() {
     const graph = new Graph({
       container: document.getElementById('container'),
       grid: true,
+      autoResize: true,
       background: {
         color: '#ffffff', // 设置背景色
       },
@@ -121,8 +123,16 @@ function AntGraph() {
         console.log('args', args, edge);
         const content = selectors.foContent;
         console.log('content', content);
+        const sourceNode = edge.getSourceNode();
+        const targetNode = edge.getTargetNode();
+        const dx = targetNode.position().x - sourceNode.position().x;
+        const dy = targetNode.position().y - sourceNode.position().y;
+        const angle = Math.atan2(dy, dx); // 弧度
+        const rotation = (angle * 180) / Math.PI;
+        // content.style.transform = `rotate(${rotation}deg)`;
+        // content.style.transformOrigin = 'center';
         if (content) {
-          ReactDOM.createRoot(content).render(<Label text={label.attrs.label.text}/>);
+          ReactDOM.createRoot(content).render(<Label text={label.attrs.label.text} style={{}}/>);
         }
       },
     });
@@ -151,16 +161,10 @@ function AntGraph() {
       target: node2,
       defaultLabel: {
         markup: Markup.getForeignObjectMarkup(),
-        labelCfg: {
-          autoRotate: true, // 自动旋转标签
-          position: 'middle', // 标签位置，默认在边的中间
-        },
         attrs: {
           fo: {
             width: 120,
             height: 30,
-            // x: 60,
-            // y: -15,
           },
         },
       },
