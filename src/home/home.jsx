@@ -39,6 +39,9 @@ function Home() {
     <Link to={'/ant-graph'}>
       Ant Graph
     </Link>
+    <Link to={'/ant-graph-3d'}>
+      Ant Graph 3D
+    </Link>
     <ClickToComponent editor={'cursor'}/>
     <NumCounter/>
     <DatePicker/>
