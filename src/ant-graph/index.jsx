@@ -8,10 +8,7 @@ const Label = (props) => {
   const onClick = () => {
     alert('clicked');
   }
-
-
   console.log('props', props);
-
   return (
     <button
       style={{
@@ -22,6 +19,8 @@ const Label = (props) => {
         background: '#ffd591',
         border: '2px solid #ffa940',
         borderRadius: 4,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       }}
       onClick={onClick}
     >
@@ -36,14 +35,15 @@ const Label = (props) => {
 function AntGraph() {
   const edgeRef = useRef(null);
   const updateLabel = useCallback(() => {
-    edgeRef.current.attr()
-    edgeRef.current.appendLabel({
-      attrs: {
-        text: {
-          text: Math.random().toString(),
+    edgeRef.current.setLabels(
+      {
+        attrs: {
+          label: {
+            text: Math.random(),
+          },
         },
-      },
-    })
+        position: 0.25,
+      });
   }, []);
   useEffect(() => {
     const graph = new Graph({
@@ -53,12 +53,12 @@ function AntGraph() {
         color: '#eac7b530', // 设置背景色
       },
       onEdgeLabelRendered: (args) => {
-        const {selectors, label,} = args;
-        console.log('args', args);
+        const {selectors, label, edge,} = args;
+        console.log('args', args, edge);
         const content = selectors.foContent;
         console.log('content', content);
         if (content) {
-          ReactDOM.createRoot(content).render(<Label text={label.text}/>);
+          ReactDOM.createRoot(content).render(<Label text={label.attrs.label.text}/>);
         }
       },
     })
@@ -66,6 +66,7 @@ function AntGraph() {
     const edge = graph.addEdge({
       source: [170, 160],
       target: [550, 160],
+      // 默认标签样式
       defaultLabel: {
         markup: Markup.getForeignObjectMarkup(),
         attrs: {
@@ -78,8 +79,12 @@ function AntGraph() {
         },
       },
       label: {
+        attrs:{
+          label: {
+            text: '2222',
+          },
+        },
         position: 0.25,
-        text: 'Hello, Edge!', // 设置标签文本内容
       },
       attrs: {
         line: {
@@ -88,9 +93,7 @@ function AntGraph() {
       },
     });
     edgeRef.current = edge;
-    // edge.appendLabel('123');
   }, []);
-
 
   return <div style={{
     display: "flex"
@@ -99,7 +102,9 @@ function AntGraph() {
       width: 1000,
       height: 1000,
     }}></div>
-    <Button onClick={updateLabel}>Update Label</Button>
+    <Button onClick={updateLabel} style={{
+
+    }}>Update Label</Button>
   </div>;
 }
 
