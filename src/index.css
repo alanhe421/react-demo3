@@ -20,3 +20,7 @@ code {
     border-radius: 4px;
     color: black;
 }
+
+.dgraph {
+    /*transform: perspective(800px) rotateX(30deg) rotateY(-30deg);*/
+}

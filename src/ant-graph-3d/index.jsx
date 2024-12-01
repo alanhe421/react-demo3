@@ -150,6 +150,20 @@ function AntGraph() {
     graph.addEdge({
       source: node1,
       target: node2,
+      defaultLabel: {
+        markup: Markup.getForeignObjectMarkup(),
+        labelCfg:{
+          autoRotate: true,
+        },
+        attrs: {
+          fo: {
+            width: 120,
+            height: 30,
+            // x: 60,
+            // y: -15,
+          },
+        },
+      },
       attrs: {
         line: {
           stroke: '#ff0000',
@@ -161,6 +175,9 @@ function AntGraph() {
           attrs: {
             label: {
               text: 'React Edge',
+              labelCfg: {
+                autoRotate: true,
+              }
             },
           },
           position: 0.5,
@@ -175,7 +192,7 @@ function AntGraph() {
   return <div style={{
     display: "flex"
   }}>
-    <div id="container" style={{
+    <div className={'dgraph'} id="container" style={{
       width: 1000,
       height: 1000,
     }}></div>
