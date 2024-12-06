@@ -4,6 +4,7 @@ import Home from "./home/home";
 import ErrorBoundary from './error/react-err';
 import AntGraph from "./ant-graph";
 import AntGraph3D from "./ant-graph-3d";
+import FormTest from "./form/index.";
 
 const router = createBrowserRouter([{
   path: '/', element: <Navigate to="/home" replace />,
@@ -15,6 +16,9 @@ const router = createBrowserRouter([{
   },
   {
     path: '/ant-graph-3d', element: <AntGraph3D/>,
+  },
+  {
+    path: '/form-test', element: <FormTest/>,
   }
 ]);
 
