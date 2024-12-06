@@ -3,7 +3,6 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { Button } from "antd";
 
 function FormTest() {
-  const contentRef = useRef(null);
   const {control, register, getValues} = useForm();
   const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormProvider)
