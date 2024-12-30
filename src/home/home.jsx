@@ -5,6 +5,7 @@ import { setUserInfo } from "../actions";
 import NumCounter from "../num-counter/index.";
 import { ClickToComponent } from "click-to-react-component";
 import { Button, DatePicker } from "antd";
+import { Button as TeaButton, DatePicker as TeaDatePicker } from "tea-component";
 import ExampleComponent from "./example";
 
 function Home() {
@@ -13,6 +14,9 @@ function Home() {
   const [hasError, setHasError] = useState(false);
   const count = user.age;
   console.log(user);
+
+
+  const [num, setNum] = useState(0);
 
   const createError = useCallback(() => {
     JSON.parse(undefined);
@@ -35,7 +39,20 @@ function Home() {
 
   console.log('tooltipHeight', tooltipHeight, ref.current?.getBoundingClientRect());
 
+
+  const a = 1;
+  const b = 0;
+
   return <><Link to={'/'}>home</Link>
+    <TeaButton type={'primary'} onClick={() => {
+      console.log('before', num);
+      setNum(num + 1);
+      // console.log('end', num);
+      setTimeout(() => {
+        console.log('end-time', num);
+      },[]);
+    }}>Tea Btn</TeaButton>
+    <TeaDatePicker/>
     <Link to={'/ant-graph'}>
       Ant Graph
     </Link>
@@ -72,6 +89,19 @@ function Home() {
       }}>
         throw error
       </Button>
+      <div>
+        111
+      </div>
+      <div>
+
+        {
+          Boolean(a && b) && <div>hello world</div>
+        }
+      </div>
+
+      <div>
+        111
+      </div>
     </div>
   </>;
 }
