@@ -52,6 +52,9 @@ function Home() {
         console.log('end-time', num);
       },[]);
     }}>Tea Btn</TeaButton>
+    <TeaButton type={'success'}>新增的Tea按钮</TeaButton>
+    <TeaButton type={'warning'} onClick={() => console.log('warning clicked')}>警告按钮</TeaButton>
+    <TeaButton type={'weak'} disabled>禁用按钮</TeaButton>
     <TeaDatePicker/>
     <Link to={'/ant-graph'}>
       Ant Graph

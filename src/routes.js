@@ -18,7 +18,7 @@ const router = createBrowserRouter([{
     path: '/ant-graph-3d', element: <AntGraph3D/>,
   },
   {
-    path: '/form-test', element: <FormTest/>,
+    path: '/form', element: <FormTest/>,
   }
 ]);
 

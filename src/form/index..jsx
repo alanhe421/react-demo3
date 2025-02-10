@@ -1,9 +1,14 @@
-import { useRef } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Button } from "antd";
+import { Form, Input } from "tea-component";
 
 function FormTest() {
-  const {control, register, getValues} = useForm();
+  const {control, register, getValues, reset} = useForm({
+    defaultValues: {
+      test: [],
+      username: ''
+    }
+  });
   const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormProvider)
     name: "test", // unique name for your Field Array
@@ -12,12 +17,6 @@ function FormTest() {
   console.log(fields, 'fields');
   return (
     <form>
-      {fields.map((field, index) => (
-        <div><input
-          key={field.id} // important to include key with field's id
-          {...register(`test.${index}.value`)}
-        /></div>
-      ))}
 
       <Button onClick={() => {
         append({
@@ -26,9 +25,36 @@ function FormTest() {
       }}>
         Add
       </Button>
-      {
-        JSON.stringify(getValues())
-      }
+      <Button onClick={() => {
+        reset({
+          test: [{value: Math.random()}],
+          username: Math.random()
+        })
+      }}>
+        初始化数组
+      </Button>
+      <Button onClick={() => {
+        reset({})
+      }}>
+        清空form
+      </Button>
+      <div>
+        {
+          JSON.stringify(getValues())
+        }
+      </div>
+      <Form.Item label={'username'}>
+        <Controller control={control} render={({field}) =>
+          <Input {...field}/>} name={'username'}/>
+      </Form.Item>
+      {fields.map((field, index) => (
+        <div><input
+          key={field.id} // important to include key with field's id
+          {...register(`test.${index}.value`)}
+        /></div>
+      ))}
+
+
     </form>
   );
 }
