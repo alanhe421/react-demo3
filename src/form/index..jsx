@@ -25,6 +25,11 @@ function FormTest() {
     name: 'totalPrice'
   })
 
+  const allFieldWatch = useWatch({
+    control,
+    name: ['price', 'num']
+  })
+
   useEffect(() => {
     const wFn = watch((data, { name }) => {
       console.log(data, name)
@@ -35,6 +40,10 @@ function FormTest() {
     });
     return wFn.unsubscribe;
   }, [])
+
+  useEffect(() => {
+    console.log('price num changed', allFieldWatch)
+  }, [allFieldWatch])
 
   return (
     <form>
