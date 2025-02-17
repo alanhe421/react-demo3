@@ -6,7 +6,8 @@ function FormTest() {
   const {control, register, getValues, reset} = useForm({
     defaultValues: {
       test: [],
-      username: ''
+      username: '',
+      hello1: ''
     }
   });
   const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
@@ -26,10 +27,7 @@ function FormTest() {
         Add
       </Button>
       <Button onClick={() => {
-        reset({
-          test: [{value: Math.random()}],
-          username: Math.random()
-        })
+        reset({})
       }}>
         初始化数组
       </Button>
@@ -54,7 +52,9 @@ function FormTest() {
         /></div>
       ))}
 
-
+      <Form.Item label={'hello1'}>
+        <Controller name={'hello1'} control={control} render={({field}) => <Input {...field}/>}/>
+      </Form.Item>
     </form>
   );
 }
