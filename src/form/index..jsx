@@ -1,21 +1,41 @@
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { Button } from "antd";
 import { Form, Input } from "tea-component";
+import { useEffect, useState } from "react";
 
 function FormTest() {
-  const {control, register, getValues, reset} = useForm({
+  const { control, register, getValues, reset, watch, setValue } = useForm({
     defaultValues: {
       test: [],
-      username: '',
-      hello1: ''
+      price: 0,
+      num: 0,
+      address: '',
+      totalPrice: null
     }
   });
-  const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormProvider)
     name: "test", // unique name for your Field Array
   });
 
+
   console.log(fields, 'fields');
+  const totalPriceWatch = useWatch({
+    control,
+    name: 'totalPrice'
+  })
+
+  useEffect(() => {
+    const wFn = watch((data, { name }) => {
+      console.log(data, name)
+      if (['price', 'num'].includes(name)) {
+        const totalPrice = data.price * data.num;
+        setValue('totalPrice', totalPrice);
+      }
+    });
+    return wFn.unsubscribe;
+  }, [])
+
   return (
     <form>
 
@@ -41,10 +61,20 @@ function FormTest() {
           JSON.stringify(getValues())
         }
       </div>
-      <Form.Item label={'username'}>
-        <Controller control={control} render={({field}) =>
-          <Input {...field}/>} name={'username'}/>
+      <Form.Item label={'price'}>
+        <Controller control={control} render={({ field }) =>
+          <Input {...field} />} name={'price'} />
       </Form.Item>
+      <Form.Item label={'num'}>
+        <Controller name={'num'} control={control} render={({ field }) => <Input {...field} />} />
+      </Form.Item>
+      <Form.Item label={'totalPrice'}>
+        <Controller name={'totalPrice'} control={control} render={({ field }) => <Input disabled {...field} />} />
+      </Form.Item>
+      <Form.Item label={'address'}>
+        <Controller name={'address'} control={control} render={({ field }) => <Input  {...field} />} />
+      </Form.Item>
+
       {fields.map((field, index) => (
         <div><input
           key={field.id} // important to include key with field's id
@@ -52,9 +82,6 @@ function FormTest() {
         /></div>
       ))}
 
-      <Form.Item label={'hello1'}>
-        <Controller name={'hello1'} control={control} render={({field}) => <Input {...field}/>}/>
-      </Form.Item>
     </form>
   );
 }
