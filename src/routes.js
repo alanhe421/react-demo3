@@ -5,7 +5,7 @@ import ErrorBoundary from './error/react-err';
 import AntGraph from "./ant-graph";
 import AntGraph3D from "./ant-graph-3d";
 import FormTest from "./form/index.";
-
+import MonacoEditor from "./monaco-editor";
 const router = createBrowserRouter([{
   path: '/', element: <Navigate to="/home" replace />,
 }, {
@@ -19,6 +19,9 @@ const router = createBrowserRouter([{
   },
   {
     path: '/form', element: <FormTest/>,
+  },
+  {
+    path: '/monaco-editor', element: <MonacoEditor/>,
   }
 ]);
 

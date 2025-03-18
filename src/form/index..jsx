@@ -1,4 +1,4 @@
-import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useFormState, useWatch } from "react-hook-form";
 import { Button } from "antd";
 import { Form, Input } from "tea-component";
 import { useEffect, useState } from "react";
@@ -29,6 +29,13 @@ function FormTest() {
     control,
     name: ['price', 'num']
   })
+
+
+  const { isDirty, isSubmitting } = useFormState({
+    control,
+  })
+
+  console.log('isSubmitting', isSubmitting)
 
   useEffect(() => {
     const wFn = watch((data, { name }) => {
