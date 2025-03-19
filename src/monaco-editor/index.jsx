@@ -1,6 +1,6 @@
-import React, { useCallback, useRef } from 'react';
-import MonacoEditor from 'react-monaco-editor';
 import * as monaco from 'monaco-editor';
+import React from 'react';
+import MonacoEditor from 'react-monaco-editor';
 const sampleValue=[
   {
     "inputs": [
@@ -182,45 +182,21 @@ function AntGraph() {
       theme="vs-dark"
       value={JSON.stringify(sampleValue, null, 2)}
       options={{
+        quickSuggestions: true, // 自动补全
         autoIndent: true,
         automaticLayout: true,
-        suggestOnTriggerCharacters: true,
-        quickSuggestions: true,
         validate: true,
-        quickSuggestions: {
-          strings: true,
-          other: true,
-          comments: true
+        hover: {
+          enabled: true,
         },
-        parameterHints: {
-          enabled: true
-        },
-        snippets: "inline",
         suggest: {
-          showWords: true,
-          showSnippets: true,
-          showProperties: true,
-          showMethods: true,
-          showFunctions: true,
-          showVariables: true,
-          showClasses: true,
-          showInterfaces: true,
-          showStructs: true,
-          showEvents: true,
-          showOperators: true,
-          showUnits: true,
-          showValues: true,
-          showConstants: true,
-          showEnums: true,
-          showEnumMembers: true,
-          showKeywords: true,
-          showTypeParameters: true,
-          showModules: true,
-          showFiles: true,
-          showReferences: true,
-          showFolders: true,
-          showColors: true,
-          showIcons: true
+          insertMode: "insert",
+          snippetsPreventQuickSuggestions: false,
+          showInlineDetails: true,
+          showDetails: true,
+          preview: true,
+          previewMode: 'prefix',
+          maxVisibleSuggestions: 12,
         },
       }}
     />
