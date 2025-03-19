@@ -182,29 +182,20 @@ function AntGraph() {
       theme="vs-dark"
       value={JSON.stringify(sampleValue, null, 2)}
       options={{
-        formatOnPaste: true,
-        formatOnType: true,
         autoIndent: true,
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
         automaticLayout: true,
         suggestOnTriggerCharacters: true,
         quickSuggestions: true,
-        // 启用JSON验证和自动完成
         validate: true,
-        // 启用自动完成
         quickSuggestions: {
           strings: true,
           other: true,
           comments: true
         },
-        // 启用参数提示
         parameterHints: {
           enabled: true
         },
-        // 启用代码片段
         snippets: "inline",
-        // 启用智能感知
         suggest: {
           showWords: true,
           showSnippets: true,
