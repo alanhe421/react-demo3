@@ -2,8 +2,11 @@ import { Controller, useFieldArray, useForm, useFormState, useWatch } from "reac
 import { Button } from "antd";
 import { Form, Input } from "tea-component";
 import { useEffect, useState } from "react";
+import { useManifest } from "../../hooks/useManifest";
 
 function FormTest() {
+  const { data, refetch } = useManifest()
+
   const { control, register, getValues, reset, watch, setValue } = useForm({
     defaultValues: {
       test: [],
