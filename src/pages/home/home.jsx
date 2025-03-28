@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo } from "../actions";
-import NumCounter from "../num-counter/index.";
-import { ClickToComponent } from "click-to-react-component";
 import { Button, DatePicker } from "antd";
+import { ClickToComponent } from "click-to-react-component";
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Button as TeaButton, DatePicker as TeaDatePicker } from "tea-component";
+import { setUserInfo } from "../../actions";
+import NumCounter from "../num-counter/index.";
 import ExampleComponent from "./example";
 
 function Home() {
@@ -14,7 +16,10 @@ function Home() {
   const [hasError, setHasError] = useState(false);
   const count = user.age;
   console.log(user);
-
+  const [code, setCode] = useState(`
+  const a = 12222;
+  const b = 0;
+`);
 
   const [num, setNum] = useState(0);
 
@@ -101,11 +106,26 @@ function Home() {
           Boolean(a && b) && <div>hello world</div>
         }
       </div>
-
-      <div>
-        111
+      <Button onClick={()=>{
+        console.log('更新代码？？？');
+        const newCode = `
+          const a = 1;
+          const b = 0;
+        `;
+        setCode(newCode);
+      }}>
+        更新代码？？？
+      </Button>
+      <div dangerouslySetInnerHTML={{
+        __html: hljs.highlight(code,
+          { language: 'javascript' }
+        ).value
+      }}>
       </div>
     </div>
+<div>
+</div>
+
   </>;
 }
 

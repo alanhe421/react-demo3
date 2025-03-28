@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { Graph, Markup } from "@antv/x6";
 import { Button, Popover } from "antd";
 import { register } from '@antv/x6-react-shape'
-import iconUrl from './../svg/television-67.svg';
-import iconUrl2 from './../svg/bag-rice.svg';
+import iconUrl from './../../svg/television-67.svg';
+import iconUrl2 from './../../svg/bag-rice.svg';
 
 class CustomNode extends React.Component {
   shouldComponentUpdate() {
