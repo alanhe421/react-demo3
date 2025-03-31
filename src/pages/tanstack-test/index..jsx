@@ -3,9 +3,18 @@ import { Button } from "antd";
 import { Form, Input, Card } from "tea-component";
 import { Link } from "react-router-dom";
 import { useManifest } from "../../hooks/useManifest";
+import { useEffect } from "react";
 
 function FormTest() {
   const { data, refetch } = useManifest()
+
+
+useEffect(() => {
+  const interval = setInterval(() => {
+  }, 1000)
+  return () => clearInterval(interval)
+}, [])
+
   return (
     <>
       <Card>
