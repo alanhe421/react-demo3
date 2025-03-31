@@ -3,6 +3,7 @@ import { Card, Form, Input } from "tea-component";
 import { useEffect } from "react";
 import { useManifest } from "../../hooks/useManifest";
 import { ProductFooter } from "./footer";
+import { Button } from "antd";
 
 function FormTest() {
   const {data, refetch} = useManifest()
@@ -23,30 +24,19 @@ function FormTest() {
     name: "test", // unique name for your Field Array
   });
   console.log(fields, 'fields');
-  const totalPriceWatch = useWatch({
-    control,
-    name: 'totalPrice'
-  })
 
   const allFieldWatch = useWatch({
     control,
-    name: ['price', 'num']
+    name: ['price'],
   })
-
 
   const {isDirty, isSubmitting} = useFormState({
     control,
   })
 
-  console.log('isSubmitting', isSubmitting)
-
   useEffect(() => {
     const wFn = watch((data, {name}) => {
-      console.log(data, name)
-      if (['price', 'num'].includes(name)) {
-        const totalPrice = data.price * data.num;
-        setValue('totalPrice', totalPrice);
-      }
+      console.log('column changed', data, name)
     });
     return wFn.unsubscribe;
   }, [])
@@ -73,6 +63,21 @@ function FormTest() {
           </Card.Body>
         </Card>
         <ProductFooter/>
+        <Card>
+          <Card.Header>
+            操作
+          </Card.Header>
+          <Card.Body>
+            <Button onClick={() => {
+              reset({
+                ...getValues(),
+                price: 55,
+              })
+            }}>
+              重置price
+            </Button>
+          </Card.Body>
+        </Card>
       </div>
     </FormProvider>
   );
