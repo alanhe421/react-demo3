@@ -78,7 +78,7 @@ function FormTest() {
   }, []);
 
 
-  console.debug('dirtyFields', dirtyFields);
+  console.log('form render');
 
   return (
     <FormProvider {...formProps}>
