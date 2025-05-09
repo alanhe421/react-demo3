@@ -3,6 +3,16 @@ import { Card, Form, Input } from 'tea-component';
 import { useEffect } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup
+  .object()
+  .shape({
+    price: yup.number().required(),
+    quantity: yup.number().min(1).max(100).required(),
+  })
+  .required();
 
 function FormTest() {
   const formProps = useForm({
@@ -13,7 +23,8 @@ function FormTest() {
       num: null,
       quantity: null,
       totalPrice: null
-    }
+    },
+    resolver: yupResolver(schema),
   });
   const {
     control,
