@@ -111,7 +111,7 @@ function AntGraph() {
                   type: "object",
                   required: ["type"],
                   properties: {
-                    anonymous: { 
+                    anonymous: {
                       type: "boolean",
                       description: "是否为匿名事件，false表示该事件是链上可识别的"
                     },
@@ -121,30 +121,30 @@ function AntGraph() {
                       items: {
                         type: "object",
                         properties: {
-                          indexed: { 
+                          indexed: {
                             type: "boolean",
                             description: "表示该参数是索引参数，可以被用于过滤事件"
                           },
-                          internalType: { 
+                          internalType: {
                             type: "string",
                             description: "内部类型，表示数据类型，如uint256、address等"
                           },
-                          name: { 
+                          name: {
                             type: "string",
                             description: "参数名称"
                           },
-                          type: { 
+                          type: {
                             type: "string",
                             description: "参数类型，如uint256、address等"
                           }
                         }
                       }
                     },
-                    name: { 
+                    name: {
                       type: "string",
                       description: "函数或事件名称"
                     },
-                    describe: { 
+                    describe: {
                       type: "string",
                       description: "函数或事件的描述"
                     },
@@ -154,28 +154,28 @@ function AntGraph() {
                       items: {
                         type: "object",
                         properties: {
-                          internalType: { 
+                          internalType: {
                             type: "string",
                             description: "内部类型，表示数据类型"
                           },
-                          name: { 
+                          name: {
                             type: "string",
                             description: "参数名称"
                           },
-                          type: { 
+                          type: {
                             type: "string",
                             description: "参数类型"
                           }
                         }
                       }
                     },
-                    stateMutability: { 
-                      type: "string", 
+                    stateMutability: {
+                      type: "string",
                       enum: ["view", "pure", "nonpayable", "payable"],
                       description: "函数的状态可变性：view(只读)、nonpayable(可修改状态但不接收以太币)、pure(不读取或修改状态)、payable(可接收以太币)"
                     },
-                    type: { 
-                      type: "string", 
+                    type: {
+                      type: "string",
                       enum: ["function", "event", "constructor", "fallback", "receive"],
                       description: "类型：function(函数)、event(事件)、constructor(构造函数)、fallback(回退函数)、receive(接收函数)"
                     }
@@ -194,6 +194,7 @@ function AntGraph() {
         automaticLayout: true,
         validate: true,
         folding: true,
+        readonly: true,
         hover: {
           enabled: true,
         },
