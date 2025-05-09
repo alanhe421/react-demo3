@@ -16,7 +16,7 @@ const schema = yup
 
 function FormTest() {
   const formProps = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     defaultValues: {
       test: [],
       price: null,
