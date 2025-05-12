@@ -43,9 +43,9 @@ function FormTest() {
   );
   console.log(fields, 'fields');
 
-  const allFieldWatch = useWatch({
+  const personsWatch = useWatch({
     control,
-    name: ['price']
+    name: ['persons']
   });
 
   const {isDirty, isSubmitting} = useFormState({
@@ -93,6 +93,22 @@ function FormTest() {
                 })}
               />
             </Form.Item>
+
+            <Form.Item label={'Person 0'}>
+              <input
+                {...register('persons.0', {
+                  // valueAsNumber: true,
+                })}
+              />
+            </Form.Item>
+            <Form.Item label={'Person 1'}>
+              <Input
+                {...register('persons.1', {
+                  // valueAsNumber: true,
+                })}
+              />
+            </Form.Item>
+
           </Card.Body>
         </Card>
         <ProductFooter/>
