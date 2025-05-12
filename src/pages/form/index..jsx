@@ -6,6 +6,21 @@ import { Button } from 'antd';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+const form_fields = [
+  {
+    name: 'price',
+    transform: {
+      output: v => +v
+    }
+  },
+  {
+    name: 'num'
+  },
+  {
+    name: 'quantity'
+  }
+
+]
 const schema = yup
   .object()
   .shape({
@@ -19,7 +34,7 @@ function FormTest() {
     mode: 'onSubmit',
     defaultValues: {
       test: [],
-      price: null,
+      price: '1',
       num: null,
       quantity: null,
       totalPrice: null
@@ -48,9 +63,10 @@ function FormTest() {
     name: ['persons']
   });
 
-  const {isDirty, isSubmitting} = useFormState({
+  const {isDirty, isSubmitting, dirtyFields} = useFormState({
     control
   });
+
 
   useEffect(() => {
     const wFn = watch((data, {name}) => {
@@ -59,41 +75,25 @@ function FormTest() {
     return wFn.unsubscribe;
   }, []);
 
+
+  console.debug('dirtyFields', dirtyFields);
+
   return (
     <FormProvider {...formProps}>
       <div className={'container'}>
         <Card>
           <Card.Header>商品详情</Card.Header>
           <Card.Body>
-            <Form.Item label={'price'}>
-              <Controller
-                rules={{
-                  required: true,
-                  validate: (s) => {
-                    console.log('price validate', s);
-                  }
-                }}
-                control={control}
-                render={({field}) => <Input {...field} />}
-                name={'price'}
-              />
-            </Form.Item>
-            <Form.Item label={'num'}>
-              <Controller
-                rules={{required: true}}
-                name={'num'}
-                control={control}
-                render={({field}) => <Input {...field} />}
-              />
-            </Form.Item>
-            <Form.Item label={'quantity'}>
-              <input
-                {...register('quantity', {
-                  // valueAsNumber: true,
-                })}
-              />
-            </Form.Item>
-
+            {
+              form_fields.map(item => <Form.Item label={item.name}>
+                <Controller key={item.name} render={({field}) => <Input {...field}
+                                                                        onChange={v => {
+                                                                          return field.onChange(item?.transform?.parse ? item.transform.output(v) : v);
+                                                                        }}
+                />} name={item.name}
+                            control={control}/>
+              </Form.Item>)
+            }
             <Form.Item label={'Person 0'}>
               <input
                 {...register('persons.0', {
@@ -101,14 +101,6 @@ function FormTest() {
                 })}
               />
             </Form.Item>
-            <Form.Item label={'Person 1'}>
-              <Input
-                {...register('persons.1', {
-                  // valueAsNumber: true,
-                })}
-              />
-            </Form.Item>
-
           </Card.Body>
         </Card>
         <ProductFooter/>
@@ -144,6 +136,7 @@ function FormTest() {
               ))}
             </div>
             <div>isValid: {isValid.toString()}</div>
+            <div>dirtyFields: {Object.keys(dirtyFields).join(', ')}</div>
           </Card.Body>
         </Card>
       </div>
