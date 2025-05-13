@@ -60,10 +60,10 @@ function FormTest() {
   );
   console.log(fields, 'fields');
 
-  const personsWatch = useWatch({
+  const personField = useFieldArray({
     control,
-    name: ['persons']
-  });
+    name: 'persons'
+  })
 
   const {isDirty, isSubmitting, dirtyFields} = useFormState({
     control
@@ -105,13 +105,18 @@ function FormTest() {
                 </Form.Item>;
               })
             }
-            <Form.Item label={'Person 0'}>
-              <input
-                {...register('persons.0', {
-                  // valueAsNumber: true,
-                })}
-              />
-            </Form.Item>
+
+            {
+              personField.fields.map((item, idx) => {
+                return <Form.Item label={`Person ${idx}`}>
+                  <input
+                    {...register(`persons.${idx}`, {
+                      // valueAsNumber: true,
+                    })}
+                  />
+                </Form.Item>
+              })
+            }
           </Card.Body>
         </Card>
         <ProductFooter/>
@@ -137,7 +142,6 @@ function FormTest() {
             >SetDirty price
             </Button>
 
-
             <Button
               onClick={() => {
                 // null
@@ -146,6 +150,18 @@ function FormTest() {
                 });
               }}
             >Set price null
+            </Button>
+            <Button
+              onClick={() => {
+                personField.append(Math.random().toString())
+              }}>
+              Add Person
+            </Button>
+            <Button
+              onClick={() => {
+                personField.remove(personField.fields.length - 1);
+              }}>
+              Remove Person
             </Button>
             <Button className={'ml-8'} disabled={!isValid}>
               保存
