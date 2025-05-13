@@ -40,3 +40,7 @@
 .container {
     padding: 50px;
 }
+
+.btn-group button:not(:last-child) {
+    margin-right: 5px;
+}

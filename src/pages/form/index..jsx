@@ -1,5 +1,5 @@
 import { Controller, FormProvider, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
-import { Card, Form, Input,Text } from 'tea-component';
+import { Card, Form, Input, Text } from 'tea-component';
 import { useEffect } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
@@ -33,7 +33,7 @@ const formConfig = {
   mode: 'onBlur',
   defaultValues: {
     test: [],
-    price: '1',
+    price: 100,
     num: null,
     quantity: null,
     totalPrice: null
@@ -117,7 +117,7 @@ function FormTest() {
         <ProductFooter/>
         <Card>
           <Card.Header>操作</Card.Header>
-          <Card.Body>
+          <Card.Body className={'btn-group'}>
             <Button
               onClick={() => {
                 reset({
@@ -127,6 +127,14 @@ function FormTest() {
               }}
             >
               重置price
+            </Button>
+            <Button
+              onClick={() => {
+                setValue('price', 55, {
+                  shouldDirty: true,
+                });
+              }}
+            >SetDirty price
             </Button>
             <Button className={'ml-8'} disabled={!isValid}>
               保存
