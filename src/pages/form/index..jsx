@@ -136,6 +136,17 @@ function FormTest() {
               }}
             >SetDirty price
             </Button>
+
+
+            <Button
+              onClick={() => {
+                // null
+                setValue('price', undefined, {
+                  shouldDirty: true,
+                });
+              }}
+            >Set price null
+            </Button>
             <Button className={'ml-8'} disabled={!isValid}>
               保存
             </Button>
