@@ -1,5 +1,5 @@
 import { Controller, FormProvider, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
-import { Card, Form, Input } from 'tea-component';
+import { Card, Form, Input,Text } from 'tea-component';
 import { useEffect } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
@@ -11,15 +11,16 @@ const form_fields = [
     name: 'price',
     transform: {
       output: v => +v
-    }
+    },
+    required: true,
   },
   {
     name: 'num'
   },
   {
-    name: 'quantity'
+    name: 'quantity',
+    required: true
   }
-
 ]
 const schema = yup
   .object()
@@ -28,19 +29,20 @@ const schema = yup
     quantity: yup.number().min(1).max(100).required(),
   })
   .required();
+const formConfig = {
+  mode: 'onBlur',
+  defaultValues: {
+    test: [],
+    price: '1',
+    num: null,
+    quantity: null,
+    totalPrice: null
+  },
+  resolver: yupResolver(schema),
+};
 
 function FormTest() {
-  const formProps = useForm({
-    mode: 'onSubmit',
-    defaultValues: {
-      test: [],
-      price: '1',
-      num: null,
-      quantity: null,
-      totalPrice: null
-    },
-    resolver: yupResolver(schema),
-  });
+  const formProps = useForm(formConfig);
   const {
     control,
     register,
@@ -84,15 +86,24 @@ function FormTest() {
         <Card>
           <Card.Header>商品详情</Card.Header>
           <Card.Body>
+            <div>
+              <Text theme="danger">              {
+                formConfig.mode
+              }
+              </Text>
+            </div>
             {
-              form_fields.map(item => <Form.Item label={item.name}>
-                <Controller key={item.name} render={({field}) => <Input {...field}
-                                                                        onChange={v => {
-                                                                          return field.onChange(item?.transform?.parse ? item.transform.output(v) : v);
-                                                                        }}
-                />} name={item.name}
-                            control={control}/>
-              </Form.Item>)
+              form_fields.map(item => {
+                console.log('item', item,)
+                return <Form.Item label={item.name} required={item.required}>
+                  <Controller key={item.name} render={({field}) => <Input {...field}
+                                                                          onChange={v => {
+                                                                            return field.onChange(item?.transform?.parse ? item.transform.output(v) : v);
+                                                                          }}
+                  />} name={item.name}
+                              control={control}/>
+                </Form.Item>;
+              })
             }
             <Form.Item label={'Person 0'}>
               <input
