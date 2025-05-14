@@ -1,4 +1,4 @@
-import { Controller, FormProvider, useFieldArray, useForm, useFormState, useWatch } from 'react-hook-form';
+import { Controller, FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { Card, Form, Input, Text } from 'tea-component';
 import { useEffect } from 'react';
 import { ProductFooter } from './footer';
@@ -30,9 +30,10 @@ const schema = yup
   })
   .required();
 const formConfig = {
-  mode: 'onBlur',
+  mode: 'onChange',
   defaultValues: {
     test: [],
+    // test2: [],
     price: 100,
     num: null,
     quantity: null,
@@ -52,6 +53,7 @@ function FormTest() {
     setValue,
     formState: {isValid, errors}
   } = formProps;
+
   const {fields, append, prepend, remove, swap, move, insert} = useFieldArray(
     {
       control, // control props comes from useForm (optional: if you are using FormProvider)
@@ -92,6 +94,11 @@ function FormTest() {
               }
               </Text>
             </div>
+
+            <Form.Item label={'xxxx'}>
+              <Controller render={({field}) => <Input {...field}
+              />} name={'test2.8'} control={control}/>
+            </Form.Item>
             {
               form_fields.map(item => {
                 console.log('item', item,)
