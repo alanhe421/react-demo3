@@ -4,8 +4,8 @@ import { useFormContext, useWatch } from "react-hook-form";
 
 export function ProductFooter() {
   const {control, watch} = useFormContext();
-  // const priceWatch = useWatch({control, name: 'price'});
-  const priceWatch = watch('price');
+  const priceWatch = useWatch({control, name: 'price'});
+  // const priceWatch = watch('price');
   console.log('render footer', priceWatch);
   return <Card>
     <Card.Header>

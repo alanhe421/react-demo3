@@ -1,6 +1,6 @@
-import { Controller, FormProvider, useFieldArray, useForm, useFormState } from 'react-hook-form';
+import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { Card, Form, Input, Text } from 'tea-component';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
 import * as yup from "yup";
@@ -29,8 +29,8 @@ const schema = yup
     quantity: yup.number().min(1).max(100).required(),
   })
   .required();
-const formConfig = {
-  mode: 'onChange',
+const FORM_CONFIG = {
+  mode: 'onSubmit',
   defaultValues: {
     test: [],
     // test2: [],
@@ -43,7 +43,7 @@ const formConfig = {
 };
 
 function FormTest() {
-  const formProps = useForm(formConfig);
+  const formProps = useForm(FORM_CONFIG);
   const {
     control,
     register,
@@ -51,26 +51,13 @@ function FormTest() {
     reset,
     watch,
     setValue,
-    formState: {isValid, errors}
+    formState: {isValid, errors, isDirty, isSubmitting}
   } = formProps;
-
-  const {fields, append, prepend, remove, swap, move, insert} = useFieldArray(
-    {
-      control, // control props comes from useForm (optional: if you are using FormProvider)
-      name: 'test' // unique name for your Field Array
-    }
-  );
-  console.log(fields, 'fields');
 
   const personField = useFieldArray({
     control,
     name: 'persons'
   })
-
-  const {isDirty, isSubmitting, dirtyFields} = useFormState({
-    control
-  });
-
 
 
   const [inputValue, setInputValue] = useState(1_0);
@@ -94,7 +81,7 @@ function FormTest() {
             <Card.Body>
               <div>
                 <Text theme="danger">              {
-                  formConfig.mode
+                  FORM_CONFIG.mode
                 }
                 </Text>
               </div>
@@ -193,7 +180,7 @@ function FormTest() {
                 ))}
               </div>
               <div>isValid: {isValid.toString()}</div>
-              <div>dirtyFields: {Object.keys(dirtyFields).join(', ')}</div>
+              {/*<div>dirtyFields: {Object.keys(dirtyFields).join(', ')}</div>*/}
             </Card.Body>
           </Card>
         </div>
