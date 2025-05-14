@@ -188,10 +188,10 @@ function FormTest() {
       <div>
         <label>
           <span>姓名</span>
-          <input value={inputValue}/>
+          <input value={inputValue??''}/>
         </label>
         <button onClick={() => {
-          setInputValue(5);
+          setInputValue(null);
         }}>
           设置为空
         </button>
