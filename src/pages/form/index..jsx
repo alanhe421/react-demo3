@@ -188,12 +188,17 @@ function FormTest() {
       <div>
         <label>
           <span>姓名</span>
-          <input value={inputValue??''}/>
+          <input value={inputValue}/>
         </label>
         <button onClick={() => {
-          setInputValue(null);
+          setInputValue(undefined);
         }}>
           设置为空
+        </button>
+        <button onClick={() => {
+          setInputValue(Math.random());
+        }}>
+          设置为随机数
         </button>
       </div>
     </>
