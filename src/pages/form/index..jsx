@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { Card, Form, Input, Text } from 'tea-component';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
 import * as yup from "yup";
@@ -30,7 +30,7 @@ const schema = yup
   })
   .required();
 const FORM_CONFIG = {
-  mode: 'onSubmit',
+  mode: 'onChange',
   defaultValues: {
     test: [],
     // test2: [],
@@ -51,6 +51,7 @@ function FormTest() {
     reset,
     watch,
     setValue,
+    handleSubmit,
     formState: {isValid, errors, isDirty, isSubmitting}
   } = formProps;
 
@@ -62,6 +63,10 @@ function FormTest() {
 
   const [inputValue, setInputValue] = useState(1_0);
 
+
+  const onSubmit = useCallback(() => {
+
+  }, []);
   useEffect(() => {
     const wFn = watch((data, {name}) => {
       console.log('column changed', data, name);
@@ -71,6 +76,7 @@ function FormTest() {
 
 
   console.log('form render');
+
 
   return (
     <>
@@ -159,7 +165,7 @@ function FormTest() {
                 }}>
                 Remove Person
               </Button>
-              <Button className={'ml-8'} disabled={!isValid}>
+              <Button className={'ml-8'} onClick={handleSubmit(onSubmit)}>
                 保存
               </Button>
             </Card.Body>
