@@ -15,11 +15,11 @@ const form_fields = [
     required: true,
   },
   {
-    name: 'num'
-  },
-  {
     name: 'quantity',
     required: true
+  },
+  {
+    name: 'num'
   }
 ]
 const schema = yup
@@ -85,7 +85,6 @@ function FormTest() {
                 }
                 </Text>
               </div>
-
               <Form.Item label={'xxxx'}>
                 <Controller render={({field}) => <Input {...field}
                 />} name={'test2.8'} control={control}/>
@@ -184,22 +183,26 @@ function FormTest() {
           </Card>
         </div>
       </FormProvider>
-      <div>
-        <label>
-          <span>姓名</span>
-          <input value={inputValue}/>
-        </label>
-        <button onClick={() => {
-          setInputValue(undefined);
-        }}>
-          设置为空
-        </button>
-        <button onClick={() => {
-          setInputValue(Math.random());
-        }}>
-          设置为随机数
-        </button>
-      </div>
+      <Card>
+        <Card.Body>
+          <div>
+            <label>
+              <span>姓名</span>
+              <input value={inputValue}/>
+            </label>
+            <button onClick={() => {
+              setInputValue(undefined);
+            }}>
+              设置为空
+            </button>
+            <button onClick={() => {
+              setInputValue(Math.random());
+            }}>
+              设置为随机数
+            </button>
+          </div>
+        </Card.Body>
+      </Card>
     </>
   );
 }
