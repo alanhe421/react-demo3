@@ -30,7 +30,7 @@ const schema = yup
   })
   .required();
 const FORM_CONFIG = {
-  mode: 'onChange',
+  mode: 'onSubmit',
   defaultValues: {
     test: [],
     // test2: [],
@@ -52,7 +52,7 @@ function FormTest() {
     watch,
     setValue,
     handleSubmit,
-    formState: {isValid, errors, isDirty, isSubmitting}
+    formState: {isValid, errors, isDirty, isSubmitting},
   } = formProps;
 
   const personField = useFieldArray({
