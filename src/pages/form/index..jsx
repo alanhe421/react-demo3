@@ -30,7 +30,7 @@ const schema = yup
   })
   .required();
 const FORM_CONFIG = {
-  mode: 'onSubmit',
+  mode: 'onChange',
   defaultValues: {
     test: [],
     // test2: [],
@@ -60,9 +60,7 @@ function FormTest() {
     name: 'persons'
   })
 
-
   const [inputValue, setInputValue] = useState(1_0);
-
 
   const onSubmit = useCallback(() => {
 
@@ -74,9 +72,7 @@ function FormTest() {
     return wFn.unsubscribe;
   }, []);
 
-
-  console.log('form render');
-
+  console.log('form render', watch())
 
   return (
     <>
@@ -113,7 +109,7 @@ function FormTest() {
                   return <Form.Item label={`Person ${idx}`}>
                     <input
                       {...register(`persons.${idx}`, {
-                        // valueAsNumber: true,
+                        valueAsNumber: true,
                       })}
                     />
                   </Form.Item>
