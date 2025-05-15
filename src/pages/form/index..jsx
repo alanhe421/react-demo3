@@ -1,18 +1,23 @@
-import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm
+} from 'react-hook-form';
 import { Card, Form, Input, Text } from 'tea-component';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ProductFooter } from './footer';
 import { Button } from 'antd';
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const form_fields = [
   {
     name: 'price',
     transform: {
-      output: v => +v
+      output: (v) => Number(v)
     },
-    required: true,
+    required: true
   },
   {
     name: 'quantity',
@@ -21,12 +26,12 @@ const form_fields = [
   {
     name: 'num'
   }
-]
+];
 const schema = yup
   .object()
   .shape({
     price: yup.number().required(),
-    quantity: yup.number().min(1).max(100).required(),
+    quantity: yup.number().min(1).max(100).required()
   })
   .required();
 const FORM_CONFIG = {
@@ -39,7 +44,7 @@ const FORM_CONFIG = {
     quantity: null,
     totalPrice: null
   },
-  resolver: yupResolver(schema),
+  resolver: yupResolver(schema)
 };
 
 function FormTest() {
@@ -52,27 +57,27 @@ function FormTest() {
     watch,
     setValue,
     handleSubmit,
-    formState: {isValid, errors, isDirty, isSubmitting},
+    formState: { isValid, errors, isDirty, isSubmitting }
   } = formProps;
 
   const personField = useFieldArray({
     control,
     name: 'persons'
-  })
+  });
 
   const [inputValue, setInputValue] = useState(1_0);
 
-  const onSubmit = useCallback(() => {
-
-  }, []);
+  const onSubmit = useCallback(() => {}, []);
   useEffect(() => {
-    const wFn = watch((data, {name}) => {
-      console.log('column changed', data, name);
+    const wFn = watch((data, { name }) => {
+      if (name === 'price') {
+        console.log('price changed', data[name], name);
+      }
     });
     return wFn.unsubscribe;
   }, []);
 
-  console.log('form render', watch())
+  console.log('form render', watch());
 
   return (
     <>
@@ -82,42 +87,53 @@ function FormTest() {
             <Card.Header>商品详情</Card.Header>
             <Card.Body>
               <div>
-                <Text theme="danger">              {
-                  FORM_CONFIG.mode
-                }
-                </Text>
+                <Text theme="danger"> {FORM_CONFIG.mode}</Text>
               </div>
               <Form.Item label={'xxxx'}>
-                <Controller render={({field}) => <Input {...field}
-                />} name={'test2.8'} control={control}/>
+                <Controller
+                  render={({ field }) => <Input {...field} />}
+                  name={'test2.8'}
+                  control={control}
+                />
               </Form.Item>
-              {
-                form_fields.map(item => {
-                  return <Form.Item label={item.name} required={item.required}>
-                    <Controller key={item.name} render={({field}) => <Input {...field}
-                                                                            onChange={v => {
-                                                                              return field.onChange(item?.transform?.parse ? item.transform.output(v) : v);
-                                                                            }}
-                    />} name={item.name}
-                                control={control}/>
-                  </Form.Item>;
-                })
-              }
+              {form_fields.map((item) => {
+                return (
+                  <Form.Item label={item.name} required={item.required}>
+                    <Controller
+                      key={item.name}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          onChange={(v) => {
+                            return field.onChange(
+                              item?.transform?.output
+                                ? item.transform.output(+v)
+                                : v
+                            );
+                          }}
+                        />
+                      )}
+                      name={item.name}
+                      control={control}
+                    />
+                  </Form.Item>
+                );
+              })}
 
-              {
-                personField.fields.map((item, idx) => {
-                  return <Form.Item label={`Person ${idx}`}>
+              {personField.fields.map((item, idx) => {
+                return (
+                  <Form.Item label={`Person ${idx}`}>
                     <input
                       {...register(`persons.${idx}`, {
-                        valueAsNumber: true,
+                        valueAsNumber: true
                       })}
                     />
                   </Form.Item>
-                })
-              }
+                );
+              })}
             </Card.Body>
           </Card>
-          <ProductFooter/>
+          <ProductFooter />
           <Card>
             <Card.Header>操作</Card.Header>
             <Card.Body className={'btn-group'}>
@@ -134,31 +150,35 @@ function FormTest() {
               <Button
                 onClick={() => {
                   setValue('price', 55, {
-                    shouldDirty: true,
+                    shouldDirty: true
                   });
                 }}
-              >SetDirty price
+              >
+                SetDirty price
               </Button>
 
               <Button
                 onClick={() => {
                   // null
                   setValue('price', undefined, {
-                    shouldDirty: true,
+                    shouldDirty: true
                   });
                 }}
-              >Set price null
+              >
+                Set price null
               </Button>
               <Button
                 onClick={() => {
-                  personField.append(Math.random().toString())
-                }}>
+                  personField.append(Math.random().toString());
+                }}
+              >
                 Add Person
               </Button>
               <Button
                 onClick={() => {
                   personField.remove(personField.fields.length - 1);
-                }}>
+                }}
+              >
                 Remove Person
               </Button>
               <Button className={'ml-8'} onClick={handleSubmit(onSubmit)}>
@@ -190,16 +210,20 @@ function FormTest() {
           <div>
             <label>
               <span>姓名</span>
-              <input value={inputValue}/>
+              <input value={inputValue} />
             </label>
-            <button onClick={() => {
-              setInputValue(undefined);
-            }}>
+            <button
+              onClick={() => {
+                setInputValue(undefined);
+              }}
+            >
               设置为空
             </button>
-            <button onClick={() => {
-              setInputValue(Math.random());
-            }}>
+            <button
+              onClick={() => {
+                setInputValue(Math.random());
+              }}
+            >
               设置为随机数
             </button>
           </div>
