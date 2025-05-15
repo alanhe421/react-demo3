@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'tea-component/dist/tea.css';
+import "tea-component/dist/tea.css";
 import 'highlight.js/styles/github.css';
 import './index.css';
 import App from './App';
@@ -9,10 +9,10 @@ import { ClickToComponent } from "click-to-react-component";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
       <ClickToComponent editor={'cursor'}/>
       <App/>
-  </React.StrictMode>
+  </>
 );
 
 

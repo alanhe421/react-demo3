@@ -92,7 +92,6 @@ function FormTest() {
               </Form.Item>
               {
                 form_fields.map(item => {
-                  console.log('item', item,)
                   return <Form.Item label={item.name} required={item.required}>
                     <Controller key={item.name} render={({field}) => <Input {...field}
                                                                             onChange={v => {

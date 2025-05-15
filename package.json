@@ -65,7 +65,7 @@
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.0.2",
-    "tea-component": "^2.8.0",
+    "tea-component": "2.7.9",
     "terser-webpack-plugin": "^5.2.5",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
