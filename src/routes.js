@@ -6,6 +6,7 @@ import ErrorBoundary from './pages/error/react-err';
 import FormTest from "./pages/form/index.";
 import Home from "./pages/home/home";
 import MonacoEditor from "./pages/monaco-editor";
+import NumCounter from "./pages/num-counter/index.";
 import Tanstack from "./pages/tanstack-test/index.";
 
 export const routes=[{
@@ -27,6 +28,9 @@ export const routes=[{
   },
   {
     path: '/tanstack-test', element: <Tanstack/>,
+  },
+  {
+    path: '/num-counter', element: <NumCounter/>,
   }
 ];
 
