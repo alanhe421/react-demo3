@@ -9,6 +9,7 @@ import { Button as TeaButton, Card, DatePicker as TeaDatePicker, List } from "te
 import { setUserInfo } from "../../actions";
 import NumCounter from "../num-counter/index.";
 import ExampleComponent from "./example";
+import Jazzicon from "react-jazzicon";
 
 function Home() {
   const user = useSelector((state) => state.user);
@@ -140,6 +141,7 @@ function Home() {
         </div>
       </div>
     </Card>
+    <Jazzicon diameter={100} seed={21221} />
   </>;
 }
 
