@@ -5,7 +5,7 @@ import 'highlight.js/styles/github.css';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button as TeaButton, Card, DatePicker as TeaDatePicker, List } from "tea-component";
+import { Button as TeaButton, Card, Copy, DatePicker as TeaDatePicker, List } from "tea-component";
 import { setUserInfo } from "../../actions";
 import NumCounter from "../num-counter/index.";
 import ExampleComponent from "./example";
@@ -30,6 +30,7 @@ function Home() {
 
   const ref = useRef(null);
   const [tooltipHeight, setTooltipHeight] = useState(0);
+  const cardRef = useRef(null);
 
   useLayoutEffect(() => {
     const {height} = ref.current.getBoundingClientRect();
@@ -61,7 +62,7 @@ function Home() {
           </List.Item>
           <List.Item>
             <Link to={'/form'}>form</Link>
-            </List.Item>
+          </List.Item>
         </List>
       </Card.Body>
     </Card>
@@ -72,7 +73,7 @@ function Home() {
         // console.log('end', num);
         setTimeout(() => {
           console.log('end-time', num);
-        },[]);
+        }, []);
       }}>Tea Btn</TeaButton>
       <TeaButton type={'success'}>新增的Tea按钮</TeaButton>
       <TeaButton type={'warning'} onClick={() => console.log('warning clicked')}>警告按钮</TeaButton>
@@ -123,7 +124,7 @@ function Home() {
             Boolean(a && b) && <div>hello world</div>
           }
         </div>
-        <Button onClick={()=>{
+        <Button onClick={() => {
           console.log('更新代码？？？');
           const newCode = `
           const a = 1;
@@ -135,13 +136,38 @@ function Home() {
         </Button>
         <div dangerouslySetInnerHTML={{
           __html: hljs.highlight(code,
-            { language: 'javascript' }
+            {language: 'javascript'}
           ).value
         }}>
         </div>
       </div>
     </Card>
-    <Jazzicon diameter={100} seed={21221} />
+    <Jazzicon diameter={100} seed={21221}/>
+
+    <Card style={{
+      width: 300,
+    }} ref={cardRef}>
+      <Card.Header>
+        111111
+      </Card.Header>
+      <Card.Body>
+        <div style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 18,
+          alignItems: "center",
+        }}>
+          <Copy text={'copy me'}>
+            copy me
+          </Copy>
+          <Button type={'primary'} onClick={() => {
+            cardRef.current.requestFullscreen();
+          }}>
+            FullScreen
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
   </>;
 }
 
