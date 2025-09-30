@@ -5,7 +5,7 @@ import 'highlight.js/styles/github.css';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button as TeaButton, Card, Copy, DatePicker as TeaDatePicker, List } from "tea-component";
+import { Button as TeaButton, Card, Copy, DatePicker as TeaDatePicker, List, message } from "tea-component";
 import { setUserInfo } from "../../actions";
 import NumCounter from "../num-counter/index.";
 import ExampleComponent from "./example";
@@ -157,7 +157,12 @@ function Home() {
           gap: 18,
           alignItems: "center",
         }}>
-          <Copy text={'copy me'}>
+          <Copy text={'copy me'} onCopy={() => {
+            message.warning({
+              content: "copied",
+              popupContainer: cardRef.current,
+            })
+          }}>
             copy me
           </Copy>
           <Button type={'primary'} onClick={() => {
