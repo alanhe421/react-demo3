@@ -157,7 +157,7 @@ function Home() {
           gap: 18,
           alignItems: "center",
         }}>
-          <Copy text={'copy me'} onCopy={() => {
+          <Copy text={'copied message'} onCopy={() => {
             message.warning({
               content: "copied",
               popupContainer: cardRef.current,
